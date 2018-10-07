@@ -1,6 +1,4 @@
-module PE1
-    ( funcList1
-    ) where
+module PE1 where
 
 sumOfMultiplesOf3Or5Below :: Int -> Int
 sumOfMultiplesOf3Or5Below x = sum . filter isMultipleOf3Or5 $ [1 .. x - 1]
