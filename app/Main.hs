@@ -22,10 +22,10 @@ main = putStrLn . show . solve =<< execParser opts
   where
     opts = info (optParser <**> helper) (fullDesc <> progDesc "Solve Project Euler problems")
 
-solve :: Option -> Maybe Int
+solve :: Option -> Int
 solve opt =
     case f of
-        Just g  -> Just (g $ var opt)
-        Nothing -> Nothing
+        Just g  -> g $ var opt
+        Nothing -> error "Invalid problem id"
   where
     f = getFunc $ probId opt

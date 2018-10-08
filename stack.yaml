@@ -65,4 +65,4 @@ packages:
 # compiler-check: newer-minor
 
 ghc-options:
-  "$locals": -Wall -Werror -O2
+  "$locals": -Wall -Werror -Wno-type-defaults -O2
