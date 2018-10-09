@@ -1,5 +1,6 @@
 module Main where
 
+import           Data.Semigroup      ((<>))
 import           Options.Applicative
 import           PE                  (getFunc)
 
@@ -18,7 +19,7 @@ optParser :: Parser Option
 optParser = Option <$> optProbId <*> optVar
 
 main :: IO ()
-main = putStrLn . show . solve =<< execParser opts
+main = print . solve =<< execParser opts
   where
     opts = info (optParser <**> helper) (fullDesc <> progDesc "Solve Project Euler problems")
 

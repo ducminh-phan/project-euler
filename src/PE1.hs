@@ -1,7 +1,7 @@
 module PE1 where
 
 import           Data.Char           (digitToInt)
-import           Data.List           (sort)
+import           Data.List           (sortBy)
 import           Data.Numbers.Primes (primes)
 import           Utils
 
@@ -29,16 +29,16 @@ sumOfEvenFibsBelow x = sum . takeWhile (< x) $ evenFibs
 reduceDiv :: Int -> Int -> Int
 reduceDiv n d
     | n `mod` d == 0 = reduceDiv (n `div` d) d
-    | otherwise = n
+    | otherwise      = n
 
 -- | Compute all prime factors of a given number
 primeFactors :: Int -> [Int]
 primeFactors n = primeFactors' n 2
   where
     primeFactors' n' d
-        | n' == 1 = []
+        | n' == 1         = []
         | n' `mod` d == 0 = d : primeFactors' (reduceDiv n' d) d
-        | otherwise = primeFactors' n' (d + 1)
+        | otherwise       = primeFactors' n' (d + 1)
 
 -- | Compute the largest prime factor of a given number
 largestPrimeFactor :: Int -> Int
@@ -52,11 +52,11 @@ nDigitNumbers n = [10 ^ (n - 1) .. 10 ^ n - 1]
 
 -- | Construct the list of products of two n-digit numbers, sorted in the decreasing order
 nDigitNumbersProduct :: Int -> [Int]
-nDigitNumbersProduct n = reverse . sort $ [x * y | x <- nDigitNumbers n, y <- nDigitNumbers n]
+nDigitNumbersProduct n = sortBy (flip compare) [x * y | x <- nDigitNumbers n, y <- nDigitNumbers n]
 
 -- | Check if a number is palindromic
 isPalindromic :: Int -> Bool
-isPalindromic n = (show n) == (reverse . show $ n)
+isPalindromic n = show n == (reverse . show $ n)
 
 -- | Find the largest palindrome made from the product of two n-digit numbers
 largestPalindrome :: Int -> Int
@@ -86,7 +86,7 @@ nthPrimeNumber n = last . take n $ primes
 
 -- Problem #8
 
-numStr :: [Char]
+numStr :: String
 numStr = "73167176531330624919225119674426574742355349194934"
       ++ "96983520312774506326239578318016984801869478851843"
       ++ "85861560789112949495459501737958331952853208805511"
